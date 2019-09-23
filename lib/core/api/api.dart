@@ -15,7 +15,7 @@ class ApiProvider {
 
   Future<FLResponse<FLProjectResult>> getActiveProjects() async {
     final response =
-        await _client.post('$_baseUrl/projects/0.1/projects/active');
+        await _client.get('$_baseUrl/projects/0.1/projects/active');
 
     if (response.statusCode == HttpStatus.ok) {
       return FLResponse.fromJson(json.decode(response.body));

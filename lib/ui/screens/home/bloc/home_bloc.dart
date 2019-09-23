@@ -10,11 +10,9 @@ import 'package:freelancer_jobs_showcase/ui/screens/home/bloc/home_bloc_states.d
 
 class HomeBloc extends Bloc<HomeBlocEvent, HomeBlocState> {
   final ProjectRepository projectRepository;
-  final HomeBloc homeBloc;
 
-  HomeBloc({@required this.projectRepository, @required this.homeBloc})
-      : assert(projectRepository != null),
-        assert(homeBloc != null);
+  HomeBloc({@required this.projectRepository})
+      : assert(projectRepository != null);
 
   @override
   HomeBlocState get initialState => HomeInitial();

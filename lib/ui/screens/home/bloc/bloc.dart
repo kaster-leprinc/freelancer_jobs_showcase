@@ -2,3 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+export 'home_bloc.dart';
+export 'home_bloc_events.dart';
+export 'home_bloc_states.dart';
