@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelancer_jobs_showcase/core/repositories/project_repository.dart';
 import 'package:freelancer_jobs_showcase/ui/screens/home/bloc/bloc.dart';
+import 'package:freelancer_jobs_showcase/ui/views/active_jobs_listview.dart';
 
 class HomeScreen extends StatefulWidget {
   final ProjectRepository projectRepository;
@@ -47,11 +48,8 @@ class HomeScreenState extends State<HomeScreen> {
                     child: Container(
                       height: size.height,
                       width: size.width,
-                      child: ListView.builder(
-                        itemCount: state.projects.projects.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Text(state.projects.projects[index].seoUrl);
-                        },
+                      child: ActiveJobsListView(
+                        flProjectResult: state.projects,
                       ),
                     ),
                   ),
