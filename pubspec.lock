@@ -80,7 +80,7 @@ packages:
       name: freelancer_sdk
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1+1"
+    version: "0.0.1+2"
   http:
     dependency: "direct main"
     description:
