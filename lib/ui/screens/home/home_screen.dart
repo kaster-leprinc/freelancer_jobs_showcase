@@ -43,15 +43,32 @@ class HomeScreenState extends State<HomeScreen> {
           builder: (BuildContext context, state) {
             if (state is HomeSuccessLoadingProjects) {
               return SafeArea(
-                child: Center(
-                  child: SingleChildScrollView(
-                    child: Container(
-                      height: size.height,
-                      width: size.width,
-                      child: ActiveJobsListView(
-                        flProjectResult: state.projects,
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: 90,
+                        width: size.width,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 32, left: 16, bottom: 8),
+                          child: Text(
+                            'Jobs',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 48,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      Container(
+                        height: size.height - 115,
+                        width: size.width,
+                        child: ActiveJobsListView(
+                          flProjectResult: state.projects,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               );
