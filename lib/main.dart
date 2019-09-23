@@ -5,7 +5,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freelancer_jobs_showcase/core/repositories/project_repository.dart';
-import 'package:freelancer_jobs_showcase/ui/screens/home_screen.dart';
+import 'package:freelancer_jobs_showcase/ui/screens/home/home_screen.dart';
 
 class FLBlocDelegate extends BlocDelegate {
   @override
