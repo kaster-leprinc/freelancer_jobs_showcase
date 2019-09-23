@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelancer_jobs_showcase/core/repositories/project_repository.dart';
 import 'package:freelancer_jobs_showcase/ui/screens/home/bloc/bloc.dart';
 import 'package:freelancer_jobs_showcase/ui/views/active_jobs_listview.dart';
+import 'package:freelancer_jobs_showcase/ui/widgets/animated_header_view.dart';
 
 class HomeScreen extends StatefulWidget {
   final ProjectRepository projectRepository;
@@ -22,13 +23,13 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   ProjectRepository get _projectRepository => widget.projectRepository;
   HomeBloc _homeBloc;
+  bool isShowingDefaultActionBar = true;
 
   @override
   void initState() {
-    super.initState();
-
     _homeBloc = HomeBloc(projectRepository: _projectRepository);
     _homeBloc.dispatch(LoadActiveProjects());
+    super.initState();
   }
 
   @override
@@ -47,12 +48,12 @@ class HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     children: <Widget>[
                       Container(
-                        height: 90,
                         width: size.width,
                         child: Padding(
-                          padding: EdgeInsets.only(top: 32, left: 16, bottom: 8),
+                          padding:
+                              EdgeInsets.only(top: 32, left: 16, bottom: 12),
                           child: Text(
-                            'Jobs',
+                            "Jobs",
                             textAlign: TextAlign.start,
                             style: TextStyle(
                               fontSize: 48,
@@ -61,11 +62,20 @@ class HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                      Container(
-                        height: size.height - 115,
-                        width: size.width,
+                      Expanded(
                         child: ActiveJobsListView(
                           flProjectResult: state.projects,
+                          onScrollCallback: (offset) {
+                            if (offset > 100) {
+                              setState(() {
+                                isShowingDefaultActionBar = false;
+                              });
+                            } else {
+                              setState(() {
+                                isShowingDefaultActionBar = true;
+                              });
+                            }
+                          },
                         ),
                       ),
                     ],

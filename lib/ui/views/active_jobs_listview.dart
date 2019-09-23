@@ -8,10 +8,17 @@ import 'package:freelancer_sdk/models/fl_currency.dart';
 import 'package:freelancer_sdk/models/fl_project.dart';
 import 'package:freelancer_sdk/models/fl_project_result.dart';
 
+typedef void OnScrollCallback(double offset);
+
 class ActiveJobsListView extends StatefulWidget {
+  final OnScrollCallback onScrollCallback;
   final FLProjectResult flProjectResult;
 
-  const ActiveJobsListView({Key key, this.flProjectResult}) : super(key: key);
+  const ActiveJobsListView({
+    Key key,
+    this.flProjectResult,
+    this.onScrollCallback,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -20,13 +27,32 @@ class ActiveJobsListView extends StatefulWidget {
 }
 
 class AbstractJobsListviewState extends State<ActiveJobsListView> {
+  OnScrollCallback get _onScrollCallback => widget.onScrollCallback;
+  ScrollController _scrollController;
   List<FLProject> get _projects => widget.flProjectResult.projects;
+
+  @override
+  void initState() {
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      _onScrollCallback(_scrollController.offset);
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      controller: _scrollController,
       physics: BouncingScrollPhysics(),
       itemCount: _projects.length,
+      itemExtent: 125,
       itemBuilder: (BuildContext context, int index) {
         return _buildJobsItemView(_projects[index]);
       },
@@ -52,7 +78,8 @@ class AbstractJobsListviewState extends State<ActiveJobsListView> {
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                      _buildBudgetView(project.type, project.currency, project.budget),
+                      _buildBudgetView(
+                          project.type, project.currency, project.budget),
                       textAlign: TextAlign.start,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -110,14 +137,14 @@ class AbstractJobsListviewState extends State<ActiveJobsListView> {
   }
 
   String _buildBudgetView(String type, FLCurrency currency, FLBudget budget) {
-    if(type == "hourly") {
-      if(budget.maximum < 0) {
+    if (type == "hourly") {
+      if (budget.maximum == 0) {
         return '${currency.sign}${budget.minimum}/hr';
       } else {
         return '${currency.sign}${budget.minimum}/hr-${currency.sign}${budget.maximum}/hr';
       }
     } else {
-      if(budget.maximum < 0) {
+      if (budget.maximum == 0) {
         return '${currency.sign}${budget.minimum}';
       } else {
         return '${currency.sign}${budget.minimum}-${currency.sign}${budget.maximum}';
