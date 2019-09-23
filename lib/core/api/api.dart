@@ -14,8 +14,9 @@ class ApiProvider {
   final _baseUrl = "https://freelancer.com/api";
 
   Future<FLResponse<FLProjectResult>> getActiveProjects() async {
+    // TODO: Add pagination. Make limit dynamic
     final response =
-        await _client.get('$_baseUrl/projects/0.1/projects/active');
+        await _client.get('$_baseUrl/projects/0.1/projects/active?limit=50');
 
     if (response.statusCode == HttpStatus.ok) {
       return FLResponse.fromJson(json.decode(response.body));
