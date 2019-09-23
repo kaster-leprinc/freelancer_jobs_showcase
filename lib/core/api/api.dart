@@ -8,6 +8,7 @@ import 'package:freelancer_sdk/models/fl_project_result.dart';
 import 'package:freelancer_sdk/models/fl_response.dart';
 import 'package:http/http.dart';
 
+// TODO: Soon to be migrated on freelancer_sdk
 class ApiProvider {
   Client _client = Client();
   final _baseUrl = "https://freelancer.com/api";

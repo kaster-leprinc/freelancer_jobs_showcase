@@ -6,6 +6,7 @@ import 'package:freelancer_jobs_showcase/core/api/api.dart';
 import 'package:freelancer_sdk/models/fl_project_result.dart';
 import 'package:freelancer_sdk/models/fl_response.dart';
 
+// TODO: Soon to be migrated on freelancer_sdk
 class ProjectRepository {
   // TODO: Add to dependency injection if necessary
   final ApiProvider _apiProvider = ApiProvider();
