@@ -9,12 +9,12 @@ import 'package:freelancer_sdk/models/fl_response.dart';
 import 'package:http/http.dart';
 
 class ApiProvider {
-  Client client = Client();
+  Client _client = Client();
   final _baseUrl = "https://freelancer.com/api";
 
   Future<FLResponse<FLProjectResult>> getActiveProjects() async {
     final response =
-        await client.post('$_baseUrl/projects/0.1/projects/active');
+        await _client.post('$_baseUrl/projects/0.1/projects/active');
 
     if (response.statusCode == HttpStatus.ok) {
       return FLResponse.fromJson(json.decode(response.body));
