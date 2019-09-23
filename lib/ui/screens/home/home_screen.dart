@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelancer_jobs_showcase/core/repositories/project_repository.dart';
 import 'package:freelancer_jobs_showcase/ui/screens/home/bloc/bloc.dart';
-import 'package:freelancer_jobs_showcase/ui/views/active_jobs_listview.dart';
-import 'package:freelancer_jobs_showcase/ui/widgets/animated_header_view.dart';
+import 'package:freelancer_jobs_showcase/ui/views/active_jobs_listview.dart';s
 
 class HomeScreen extends StatefulWidget {
   final ProjectRepository projectRepository;
