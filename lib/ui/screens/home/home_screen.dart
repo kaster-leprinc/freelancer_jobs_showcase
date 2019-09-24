@@ -8,6 +8,7 @@ import 'package:freelancer_jobs_showcase/core/repositories/project_repository.da
 import 'package:freelancer_jobs_showcase/ui/screens/home/bloc/bloc.dart';
 import 'package:freelancer_jobs_showcase/ui/views/active_jobs_listview.dart';
 import 'package:freelancer_jobs_showcase/ui/views/custom_animated_text.dart';
+import 'package:freelancer_jobs_showcase/ui/views/sample_abstracted_tween.dart';
 import 'package:freelancer_jobs_showcase/ui/views/sample_color_tween_external.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -71,44 +72,6 @@ class HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                         ),
-                      ),
-                      Container(
-                        width: size.width,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            top: 32,
-                            left: 16,
-                            bottom: 12,
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              if (_isTriggerChanged) {
-                                setState(() {
-                                  _isTriggerChanged = false;
-                                  _targetTitleColor = Colors.black;
-                                  _targetPadding = 0;
-                                  _targetBoxColor = Colors.black;
-                                });
-                              } else {
-                                setState(() {
-                                  _isTriggerChanged = true;
-                                  _targetTitleColor = Colors.blue;
-                                  _targetPadding = 20;
-                                  _targetBoxColor = Colors.blue;
-                                });
-                              }
-                            },
-                            child: FLCustomAnimatedHeaderTitle(
-                              title: 'Jobs',
-                              targetColor: _targetTitleColor,
-                              targetPadding: _targetPadding,
-                            ),
-                          ),
-                        ),
-                      ),
-                      CustomAnimatedBoxColorWidget(
-                        targetColor: _targetBoxColor,
-                        child: Container(height: 5),
                       ),
                       Expanded(
                         child: FLActiveJobsListView(
