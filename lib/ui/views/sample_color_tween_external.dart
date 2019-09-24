@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 const Duration duration = const Duration(milliseconds: 1000);
 
 class CustomAnimatedBoxColorWidget extends ImplicitlyAnimatedWidget {
-  final double targetColor;
+  final Color targetColor;
   final Widget child;
 
   CustomAnimatedBoxColorWidget({
@@ -38,7 +38,7 @@ class CustomAnimatedBoxColorWidgetState
   void forEachTween(visitor) {
     _colorTween = visitor(
       _colorTween,
-      widget.targetColor.toDouble(),
+      widget.targetColor,
       (color) => ColorTween(begin: color),
     );
   }
