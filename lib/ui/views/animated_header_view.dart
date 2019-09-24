@@ -4,12 +4,12 @@
 
 import 'package:flutter/material.dart';
 
-class FLAnimatedHeader extends StatelessWidget {
+class FLAnimatedHeaderView extends StatelessWidget {
   final BuildContext rootContext;
   final bool isShowingDefaultActionBar;
   final String title;
 
-  const FLAnimatedHeader({Key key, this.rootContext, this.isShowingDefaultActionBar, this.title}) : super(key: key);
+  const FLAnimatedHeaderView({Key key, this.rootContext, this.isShowingDefaultActionBar, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
