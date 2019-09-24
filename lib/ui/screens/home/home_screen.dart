@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelancer_jobs_showcase/core/repositories/project_repository.dart';
 import 'package:freelancer_jobs_showcase/ui/screens/home/bloc/bloc.dart';
 import 'package:freelancer_jobs_showcase/ui/views/active_jobs_listview.dart';
+import 'package:freelancer_jobs_showcase/ui/views/custom_animated_text.dart';
 
 class HomeScreen extends StatefulWidget {
   final ProjectRepository projectRepository;
@@ -23,6 +24,7 @@ class HomeScreenState extends State<HomeScreen> {
   ProjectRepository get _projectRepository => widget.projectRepository;
   HomeBloc _homeBloc;
   bool isShowingDefaultActionBar = true;
+  Color _titleColor = Colors.black;
 
   @override
   void initState() {
@@ -49,14 +51,44 @@ class HomeScreenState extends State<HomeScreen> {
                       Container(
                         width: size.width,
                         child: Padding(
-                          padding:
-                              EdgeInsets.only(top: 32, left: 16, bottom: 12),
+                          padding: EdgeInsets.only(
+                            top: 32,
+                            left: 16,
+                            bottom: 12,
+                          ),
                           child: Text(
                             "Jobs",
                             textAlign: TextAlign.start,
                             style: TextStyle(
                               fontSize: 48,
                               fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: size.width,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            top: 32,
+                            left: 16,
+                            bottom: 12,
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              if (_titleColor == Colors.black) {
+                                setState(() {
+                                  _titleColor = Colors.blue;
+                                });
+                              } else {
+                                setState(() {
+                                  _titleColor = Colors.black;
+                                });
+                              }
+                            },
+                            child: FLCustomAnimatedHeaderTitle(
+                              title: 'Jobs',
+                              targetColor: _titleColor,
                             ),
                           ),
                         ),
