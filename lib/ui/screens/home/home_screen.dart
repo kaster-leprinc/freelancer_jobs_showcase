@@ -30,7 +30,7 @@ class HomeScreenState extends State<HomeScreen> {
   bool _isTriggerChanged = false;
   Color _targetTitleColor = Colors.black;
   double _targetPadding = 0;
-  
+  Color _targetBoxColor = Colors.black;
 
   @override
   void initState() {
@@ -87,12 +87,14 @@ class HomeScreenState extends State<HomeScreen> {
                                   _isTriggerChanged = false;
                                   _targetTitleColor = Colors.black;
                                   _targetPadding = 0;
+                                  _targetBoxColor = Colors.black;
                                 });
                               } else {
                                 setState(() {
                                   _isTriggerChanged = true;
                                   _targetTitleColor = Colors.blue;
                                   _targetPadding = 20;
+                                  _targetBoxColor = Colors.blue;
                                 });
                               }
                             },
@@ -105,10 +107,8 @@ class HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       CustomAnimatedBoxColorWidget(
-                        targetColor: Colors.blue,
-                        child: Center(
-                          child: Text('Flutter Study Jam'),
-                        ),
+                        targetColor: _targetBoxColor,
+                        child: Container(height: 5),
                       ),
                       Expanded(
                         child: FLActiveJobsListView(
