@@ -44,7 +44,7 @@ class FLAbstractJobsListviewState extends State<FLActiveJobsListView>
     });
 
     _animationController = AnimationController(
-      duration: Duration(milliseconds: 1000),
+      duration: Duration(milliseconds: 2000),
       vsync: this,
     );
     super.initState();
@@ -71,7 +71,7 @@ class FLAbstractJobsListviewState extends State<FLActiveJobsListView>
             curve: Interval(
               (1 / count) * index,
               1.0,
-              curve: Curves.fastLinearToSlowEaseIn,
+              curve: Curves.bounceInOut,
             ),
           ),
         );
@@ -83,9 +83,9 @@ class FLAbstractJobsListviewState extends State<FLActiveJobsListView>
               opacity: animation,
               child: Transform(
                 transform: Matrix4.translationValues(
-                  0.0, // X
-                  50 * (1.0 - animation.value), // Y
-                  0.0, // Z
+                  0.0,
+                  50 * (1.0 - animation.value),
+                  0.0,
                 ),
                 child: _buildJobsItemView(_projects[index]),
               ),
