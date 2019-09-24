@@ -20,21 +20,28 @@ class JobDetailScreen extends StatefulWidget {
 }
 
 class JobDetailScreenState extends State<JobDetailScreen> {
-  FLProject get project => widget.project;
+  FLProject get _project => widget.project;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Test"),
+        title: Text(
+          _project.title,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
       ),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
             child: Hero(
               // TODO: Make this as separate util
-              tag: '${JobDetailScreen.heroTag}-${project.id}',
+              tag: '${JobDetailScreen.heroTag}-${_project.id}',
               child: Padding(
                 padding: EdgeInsets.all(32),
                 child: SingleChildScrollView(
@@ -48,9 +55,9 @@ class JobDetailScreenState extends State<JobDetailScreen> {
                             Expanded(
                               child: Text(
                                 _buildBudgetView(
-                                  project.type,
-                                  project.currency,
-                                  project.budget,
+                                  _project.type,
+                                  _project.currency,
+                                  _project.budget,
                                 ),
                                 textAlign: TextAlign.start,
                                 maxLines: 1,
@@ -70,7 +77,7 @@ class JobDetailScreenState extends State<JobDetailScreen> {
                           children: <Widget>[
                             Expanded(
                               child: Text(
-                                project.title,
+                                _project.title,
                                 textAlign: TextAlign.start,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -89,7 +96,7 @@ class JobDetailScreenState extends State<JobDetailScreen> {
                           children: <Widget>[
                             Expanded(
                               child: Text(
-                                project.previewDescription,
+                                _project.previewDescription,
                                 textAlign: TextAlign.start,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
