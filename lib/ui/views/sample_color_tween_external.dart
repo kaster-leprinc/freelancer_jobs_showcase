@@ -24,38 +24,39 @@ class CustomAnimatedBoxColorWidget extends ImplicitlyAnimatedWidget {
 
 class CustomAnimatedBoxColorWidgetState
     extends AnimatedWidgetBaseState<CustomAnimatedBoxColorWidget> {
-  ColorTween _colorTween;
+  BoxFadeTween _boxFadeTween;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: _colorTween.evaluate(animation),
+      color: _boxFadeTween.evaluate(animation),
       child: widget.child,
     );
   }
 
   @override
   void forEachTween(visitor) {
-    _colorTween = visitor(
-      _colorTween,
+    _boxFadeTween = visitor(
+      _boxFadeTween,
       widget.targetColor,
-      (color) => ColorTween(begin: color),
+      (color) => BoxFadeTween(begin: color),
     );
   }
 }
 
 class BoxFadeTween extends Tween<Color> {
+  Color middle = Colors.white;
   final Color begin;
   final Color end;
 
-  BoxFadeTween({@required this.begin, @required this.end})
-      : super(begin: begin, end: end);
+  BoxFadeTween({this.begin, this.end}) : super(begin: begin, end: end);
 
   @override
   Color lerp(double t) {
     if (t < 0.5) {
-      return begin;
+      return Color.lerp(begin, middle, t * 2);
+    } else {
+      return Color.lerp(middle, end, (t - 0.5) * 2);
     }
-    return end;
   }
 }
