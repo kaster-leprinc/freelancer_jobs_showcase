@@ -10,6 +10,8 @@ import 'package:freelancer_jobs_showcase/ui/views/active_jobs_listview.dart';
 import 'package:freelancer_jobs_showcase/ui/views/custom_animated_text.dart';
 import 'package:freelancer_jobs_showcase/ui/views/sample_abstracted_tween.dart';
 import 'package:freelancer_jobs_showcase/ui/views/sample_color_tween_external.dart';
+import 'package:freelancer_sdk/models/fl_project.dart';
+import 'package:freelancer_sdk/models/fl_project_result.dart';
 
 class HomeScreen extends StatefulWidget {
   final ProjectRepository projectRepository;
@@ -22,7 +24,8 @@ class HomeScreen extends StatefulWidget {
   }
 }
 
-class HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   ProjectRepository get _projectRepository => widget.projectRepository;
   HomeBloc _homeBloc;
   bool _isShowingDefaultActionBar = true;

@@ -27,10 +27,14 @@ class FLActiveJobsListView extends StatefulWidget {
   }
 }
 
-class FLAbstractJobsListviewState extends State<FLActiveJobsListView> {
+class FLAbstractJobsListviewState extends State<FLActiveJobsListView>
+    with SingleTickerProviderStateMixin {
   OnScrollCallback get _onScrollCallback => widget.onScrollCallback;
   ScrollController _scrollController;
   List<FLProject> get _projects => widget.flProjectResult.projects;
+
+  // Explicit Animations
+  AnimationController _animationController;
 
   @override
   void initState() {
@@ -38,6 +42,11 @@ class FLAbstractJobsListviewState extends State<FLActiveJobsListView> {
     _scrollController.addListener(() {
       _onScrollCallback(_scrollController.offset);
     });
+
+    _animationController = AnimationController(
+      duration: Duration(milliseconds: 1000),
+      vsync: this,
+    );
     super.initState();
   }
 
@@ -55,7 +64,34 @@ class FLAbstractJobsListviewState extends State<FLActiveJobsListView> {
       itemCount: _projects.length,
       itemExtent: 125,
       itemBuilder: (BuildContext context, int index) {
-        return _buildJobsItemView(_projects[index]);
+        var count = _projects.length;
+        var animation = Tween(begin: 0.0, end: 1.0).animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Interval(
+              (1 / count) * index,
+              1.0,
+              curve: Curves.fastLinearToSlowEaseIn,
+            ),
+          ),
+        );
+        _animationController.forward();
+        return AnimatedBuilder(
+          animation: _animationController,
+          builder: (BuildContext context, Widget child) {
+            return FadeTransition(
+              opacity: animation,
+              child: Transform(
+                transform: Matrix4.translationValues(
+                  0.0, // X
+                  50 * (1.0 - animation.value), // Y
+                  0.0, // Z
+                ),
+                child: _buildJobsItemView(_projects[index]),
+              ),
+            );
+          },
+        );
       },
     );
   }
