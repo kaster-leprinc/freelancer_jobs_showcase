@@ -11,11 +11,11 @@ import 'package:freelancer_sdk/models/fl_project_result.dart';
 
 typedef void OnScrollCallback(double offset);
 
-class ActiveJobsListView extends StatefulWidget {
+class FLActiveJobsListView extends StatefulWidget {
   final OnScrollCallback onScrollCallback;
   final FLProjectResult flProjectResult;
 
-  const ActiveJobsListView({
+  const FLActiveJobsListView({
     Key key,
     this.flProjectResult,
     this.onScrollCallback,
@@ -23,11 +23,11 @@ class ActiveJobsListView extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return AbstractJobsListviewState();
+    return FLAbstractJobsListviewState();
   }
 }
 
-class AbstractJobsListviewState extends State<ActiveJobsListView> {
+class FLAbstractJobsListviewState extends State<FLActiveJobsListView> {
   OnScrollCallback get _onScrollCallback => widget.onScrollCallback;
   ScrollController _scrollController;
   List<FLProject> get _projects => widget.flProjectResult.projects;

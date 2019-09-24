@@ -62,7 +62,7 @@ class HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       Expanded(
-                        child: ActiveJobsListView(
+                        child: FLActiveJobsListView(
                           flProjectResult: state.projects,
                           onScrollCallback: (offset) {
                             if (offset > 100) {
