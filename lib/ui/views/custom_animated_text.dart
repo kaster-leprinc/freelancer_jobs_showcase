@@ -9,9 +9,10 @@ const Duration animatedHeaderTitleDuration = const Duration(milliseconds: 1000);
 class FLCustomAnimatedHeaderTitle extends ImplicitlyAnimatedWidget {
   final String title;
   final Color targetColor;
+  final double targetPadding;
 
   FLCustomAnimatedHeaderTitle(
-      {@required this.title, Key key, @required this.targetColor})
+      {@required this.title, Key key, @required this.targetColor, @required this.targetPadding})
       : super(key: key, duration: animatedHeaderTitleDuration);
 
   @override
@@ -22,16 +23,22 @@ class FLCustomAnimatedHeaderTitle extends ImplicitlyAnimatedWidget {
 
 class FLCustomAnimatedHeaderTitleState
     extends AnimatedWidgetBaseState<FLCustomAnimatedHeaderTitle> {
-  // Default Tween
+  // Default Flutter SDK Tween
   ColorTween _colorTween;
+
+  // Default Tween with custom generic type
+  Tween<double> _paddingTween;
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      'Test',
-      style: TextStyle(
-        color: _colorTween.evaluate(animation),
-        fontSize: 32,
+    return Padding(
+      padding: EdgeInsets.all(_paddingTween.evaluate(animation)),
+      child: Text(
+        widget.title,
+        style: TextStyle(
+          color: _colorTween.evaluate(animation),
+          fontSize: 32,
+        ),
       ),
     );
   }
@@ -42,6 +49,12 @@ class FLCustomAnimatedHeaderTitleState
       _colorTween,
       widget.targetColor,
       (color) => ColorTween(begin: color),
+    );
+
+    _paddingTween = visitor(
+      _paddingTween,
+      widget.targetPadding.toDouble(),
+      (padding) => Tween<double>(begin: padding)
     );
   }
 }

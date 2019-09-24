@@ -23,8 +23,13 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   ProjectRepository get _projectRepository => widget.projectRepository;
   HomeBloc _homeBloc;
-  bool isShowingDefaultActionBar = true;
-  Color _titleColor = Colors.black;
+  bool _isShowingDefaultActionBar = true;
+
+  // Triggers
+  bool _isTriggerChanged = false;
+  Color _targetTitleColor = Colors.black;
+  double _targetPadding = 0;
+  
 
   @override
   void initState() {
@@ -76,19 +81,24 @@ class HomeScreenState extends State<HomeScreen> {
                           ),
                           child: InkWell(
                             onTap: () {
-                              if (_titleColor == Colors.black) {
+                              if (_isTriggerChanged) {
                                 setState(() {
-                                  _titleColor = Colors.blue;
+                                  _isTriggerChanged = false;
+                                  _targetTitleColor = Colors.black;
+                                  _targetPadding = 0;
                                 });
                               } else {
                                 setState(() {
-                                  _titleColor = Colors.black;
+                                  _isTriggerChanged = true;
+                                  _targetTitleColor = Colors.blue;
+                                  _targetPadding = 20;
                                 });
                               }
                             },
                             child: FLCustomAnimatedHeaderTitle(
                               title: 'Jobs',
-                              targetColor: _titleColor,
+                              targetColor: _targetTitleColor,
+                              targetPadding: _targetPadding,
                             ),
                           ),
                         ),
@@ -99,11 +109,11 @@ class HomeScreenState extends State<HomeScreen> {
                           onScrollCallback: (offset) {
                             if (offset > 100) {
                               setState(() {
-                                isShowingDefaultActionBar = false;
+                                _isShowingDefaultActionBar = false;
                               });
                             } else {
                               setState(() {
-                                isShowingDefaultActionBar = true;
+                                _isShowingDefaultActionBar = true;
                               });
                             }
                           },
